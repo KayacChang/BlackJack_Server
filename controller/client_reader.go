@@ -7,10 +7,10 @@ import (
 	"log"
 
 	uuid "github.com/satori/go.uuid"
-	"gitlab.com/ti-backend/ulg168/blackjack/controller/protoc"
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol"
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol/action"
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol/command"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/controller/protoc"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol/action"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol/command"
 )
 
 func ActionCheck(c *client, req *Frame) (bool, error) {

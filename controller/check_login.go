@@ -7,8 +7,8 @@ import (
 
 	"github.com/gorilla/websocket"
 	uuid "github.com/satori/go.uuid"
-	"gitlab.com/ti-backend/go-modules/ulgsdk/member"
-	"gitlab.com/ti-backend/go-modules/ulgsdk/operate"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/ulgsdk/member"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/ulgsdk/operate"
 )
 
 func checklogin(conn *websocket.Conn) (*client, error) {

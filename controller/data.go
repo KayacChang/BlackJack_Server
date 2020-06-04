@@ -2,9 +2,9 @@ package controller
 
 import (
 	uuid "github.com/satori/go.uuid"
-	"gitlab.com/ti-backend/go-modules/frame"
-	"gitlab.com/ti-backend/go-modules/frame/code"
-	"gitlab.com/ti-backend/go-modules/ulgsdk/operate"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/frame"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/frame/code"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/ulgsdk/operate"
 )
 
 type authRequest struct {

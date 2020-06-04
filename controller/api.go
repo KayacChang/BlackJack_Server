@@ -12,8 +12,8 @@ import (
 	"github.com/YWJSonic/ServerUtility/user"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes"
-	"gitlab.com/ti-backend/ulg168/blackjack/conf"
-	"gitlab.com/ti-backend/ulg168/blackjack/controller/protoc"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/conf"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/controller/protoc"
 )
 
 var version string = "v1"

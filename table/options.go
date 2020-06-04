@@ -3,8 +3,8 @@ package table
 import (
 	"database/sql"
 
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol"
-	"gitlab.com/ti-backend/go-modules/casino/lobby"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/casino/lobby"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol"
 	"go.uber.org/zap"
 )
 

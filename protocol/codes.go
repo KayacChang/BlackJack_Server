@@ -1,6 +1,6 @@
 package protocol
 
-import "gitlab.com/ti-backend/go-modules/frame/code"
+import "gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/frame/code"
 
 const (
 	BadRequest        code.Code = 400

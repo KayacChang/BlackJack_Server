@@ -1,9 +1,9 @@
 package table
 
 import (
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol"
-	"gitlab.com/ti-backend/go-modules/frame/code"
-	"gitlab.com/ti-backend/go-modules/poker"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/frame/code"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/poker"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol"
 )
 
 type pile protocol.Pile

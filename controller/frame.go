@@ -1,6 +1,6 @@
 package controller
 
-import "gitlab.com/ti-backend/go-modules/frame"
+import "gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/frame"
 
 type Frame struct {
 	frame.Frame

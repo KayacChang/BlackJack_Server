@@ -1,6 +1,6 @@
 package command
 
-import "gitlab.com/ti-backend/go-modules/frame/code"
+import "gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/frame/code"
 
 const (
 	c2s code.Code = 8003100

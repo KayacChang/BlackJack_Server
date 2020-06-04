@@ -9,14 +9,14 @@ import (
 	"strings"
 
 	"github.com/gorilla/websocket"
-	"gitlab.com/ti-backend/go-modules/frame"
-	"gitlab.com/ti-backend/go-modules/frame/code"
-	"gitlab.com/ti-backend/go-modules/ulgsdk/order"
-	"gitlab.com/ti-backend/go-modules/utils/timetool"
-	"gitlab.com/ti-backend/ulg168/blackjack/conf"
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol"
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol/action"
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol/command"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/conf"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/frame"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/frame/code"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/ulgsdk/order"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/utils/timetool"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol/action"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol/command"
 )
 
 type IOrder interface {

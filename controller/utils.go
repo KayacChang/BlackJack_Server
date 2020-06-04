@@ -8,9 +8,9 @@ import (
 	"net"
 
 	"github.com/gorilla/websocket"
-	"gitlab.com/ti-backend/go-modules/frame"
-	"gitlab.com/ti-backend/go-modules/frame/code"
-	"gitlab.com/ti-backend/ulg168/blackjack/conf"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/conf"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/frame"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/frame/code"
 )
 
 const (

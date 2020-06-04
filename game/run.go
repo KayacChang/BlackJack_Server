@@ -4,11 +4,11 @@ import (
 	"database/sql"
 	"strconv"
 
-	"gitlab.com/ti-backend/go-modules/casino/lobby"
-	"gitlab.com/ti-backend/ulg168/blackjack/conf"
-	"gitlab.com/ti-backend/ulg168/blackjack/controller"
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol"
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol/command"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/conf"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/controller"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/casino/lobby"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol/command"
 	"go.uber.org/zap"
 )
 

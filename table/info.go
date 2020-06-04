@@ -3,8 +3,8 @@ package table
 import (
 	"strconv"
 
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol"
-	"gitlab.com/ti-backend/go-modules/casino/player"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/casino/player"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol"
 )
 
 func (t *Table) ID() string {

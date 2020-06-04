@@ -9,9 +9,9 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
-	"gitlab.com/ti-backend/go-modules/casino/lobby"
-	"gitlab.com/ti-backend/go-modules/casino/player"
-	"gitlab.com/ti-backend/ulg168/blackjack/conf"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/conf"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/casino/lobby"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/casino/player"
 	"go.uber.org/zap"
 )
 

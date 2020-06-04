@@ -1,8 +1,8 @@
 package protocol
 
 import (
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol/action"
-	"gitlab.com/ti-backend/go-modules/poker"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/poker"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol/action"
 )
 
 type Data struct {

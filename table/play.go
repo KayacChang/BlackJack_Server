@@ -3,12 +3,12 @@ package table
 import (
 	"time"
 
-	"gitlab.com/ti-backend/go-modules/frame"
-	"gitlab.com/ti-backend/go-modules/frame/code"
-	"gitlab.com/ti-backend/go-modules/poker"
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol"
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol/action"
-	"gitlab.com/ti-backend/ulg168/blackjack/protocol/command"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/frame"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/frame/code"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/poker"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol/action"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol/command"
 	"go.uber.org/zap"
 )
 

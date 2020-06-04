@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"gitlab.com/ti-backend/go-modules/poker"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/poker"
 )
 
 var (

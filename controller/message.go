@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 
 	"github.com/gorilla/websocket"
-	"gitlab.com/ti-backend/ulg168/blackjack/conf"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/conf"
 )
 
 var modeB64 bool = conf.Base64Enable

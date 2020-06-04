@@ -4,8 +4,8 @@ import (
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
-	"gitlab.com/ti-backend/go-modules/ulgsdk/ulg168utils"
-	"gitlab.com/ti-backend/ulg168/blackjack/game"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/game"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/ulgsdk/ulg168utils"
 )
 
 func main() {

@@ -3,10 +3,10 @@ package game
 import (
 	"database/sql"
 
-	"gitlab.com/ti-backend/go-modules/casino/lobby"
-	"gitlab.com/ti-backend/go-modules/casino/round"
-	"gitlab.com/ti-backend/ulg168/blackjack/conf"
-	"gitlab.com/ti-backend/ulg168/blackjack/table"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/conf"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/casino/lobby"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/casino/round"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/table"
 	"go.uber.org/zap"
 )
 
