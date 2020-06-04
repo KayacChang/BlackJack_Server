@@ -1,0 +1,15 @@
+HTTP_PORT: 8880
+WS_PORT: 8881
+READ_TIMEOUT: 60
+WRITE_TIMEOUT: 60
+DEV: false
+BASE64_ENABLE: true
+LOGIN_REPEAT: true
+RTP_CTRL: 1 # 0: no control; 1, 2, 3: 25% ~ 75%; 4: always control
+MAINTAIN: true
+DEVOPS_MAINTAIN: false
+SERVICE_KILL: true
+ENV: "prod"
+# ENV: "dev" # Debug messages
+PAYOUT_GOROUTINUE: 10
+GAMEID: "b5ac49be5d3f76cb878671003dbb62ed"
