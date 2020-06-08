@@ -307,10 +307,10 @@ func httpGET(url string, header map[string][]string) ([]byte, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	req.Header = header
 	res, err := http.DefaultClient.Do(req)
-	defer res.Body.Close()
 	if err != nil {
 		return nil, err
 	}
+	defer res.Body.Close()
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
@@ -330,10 +330,10 @@ func httpPOST(url string, value []byte, header map[string][]string) ([]byte, err
 	}
 	req.Header = header
 	res, err := http.DefaultClient.Do(req)
-	defer res.Body.Close()
 	if err != nil {
 		return nil, err
 	}
+	defer res.Body.Close()
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
@@ -353,10 +353,10 @@ func httpPUT(url string, value []byte, header map[string][]string) ([]byte, erro
 	}
 	req.Header = header
 	res, err := http.DefaultClient.Do(req)
-	defer res.Body.Close()
 	if err != nil {
 		return nil, err
 	}
+	defer res.Body.Close()
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
