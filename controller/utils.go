@@ -109,7 +109,6 @@ func WsFormatDecode(msg []byte) ([]byte, error) {
 	if !conf.Base64Enable {
 		return msg, nil
 	}
-	fmt.Println(string(msg))
 	b, err := base64.StdEncoding.DecodeString(string(msg))
 	if err != nil {
 		fmt.Println("err: ", err)

@@ -51,7 +51,6 @@ func GetUser(userToken string) (*user.Info, *protoc.Error, error) {
 	}
 
 	url := fmt.Sprintf(AuthUserURL, conf.ULG168APIHost, version, tokens[1])
-	fmt.Println("API URL: ", url)
 	res, err := authUserAPI(url)
 	if err != nil {
 		if res != nil {
@@ -102,7 +101,6 @@ func NewOrder(token, userIDStr string, betMoney int64) (*protoc.Order, *protoc.E
 	}
 
 	res, err := newOrderAPI(fmt.Sprintf(NewOrderURL, conf.ULG168APIHost, version), token, payload)
-	fmt.Println(string(res))
 	if err != nil {
 		if res != nil {
 			errorProto := &protoc.Error{}
@@ -221,7 +219,6 @@ func EndOrder(token string, orderProto *protoc.Order) (*protoc.Order, *protoc.Er
 
 // authUserAPI GET transation
 func authUserAPI(url string) ([]byte, error) {
-	fmt.Println(url)
 	res, err := httpGET(url, map[string][]string{})
 	if len(res) <= 0 {
 		if err != nil {
@@ -287,7 +284,6 @@ func newSubOrderAPI(url, token string, payload []byte) ([]byte, error) {
 	}
 
 	res, err := httpPOST(url, payload, header)
-	fmt.Println("API URL: ", url)
 	if len(res) <= 0 {
 		if err != nil {
 			return nil, err

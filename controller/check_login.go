@@ -83,7 +83,8 @@ func checklogin(conn *websocket.Conn) (*client, error) {
 				continue
 			}
 
-			conn.WriteMessage(websocket.TextMessage, WsFormatEncode(member.NewS2CMemberInfo(user.UserServerInfo.Account, float64(user.UserGameInfo.GetMoney()))))
+			conn.WriteMessage(websocket.TextMessage, WsFormatEncode(operate.NewS2CLoginAck(&operate.Auth{})))
+			conn.WriteMessage(websocket.TextMessage, WsFormatEncode(member.NewS2CMemberInfo(user.UserGameInfo.Name, float64(user.UserGameInfo.GetMoney()))))
 
 			c := newClient(conn)
 			c.Token = obj.Token
