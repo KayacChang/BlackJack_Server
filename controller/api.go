@@ -73,6 +73,7 @@ func GetUser(userToken string) (*user.Info, *protoc.Error, error) {
 			Token: userToken,
 		},
 		UserGameInfo: &playerinfo.Info{
+			Name:   userProto.Username,
 			IDStr:  userProto.GetUserId(),
 			MoneyU: userProto.GetBalance(),
 		},
