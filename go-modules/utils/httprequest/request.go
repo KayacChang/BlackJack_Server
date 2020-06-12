@@ -89,7 +89,6 @@ func Post(urlpath string, timeout time.Duration, data url.Values) ([]byte, error
 	}
 
 	body := strings.NewReader(data.Encode())
-	fmt.Println(body)
 	req, err := http.NewRequest(http.MethodPost, urlpath, body)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	if err != nil {

@@ -44,7 +44,7 @@ func checklogin(conn *websocket.Conn) (*client, error) {
 			}
 
 			id := uuid.Must(uuid.NewV4()).String()
-			fmt.Println("ActionCheck checklogin 1 Login 1")
+			// fmt.Println("ActionCheck checklogin 1 Login 1")
 			// TODO 第一次進入點
 			// res, err := operate.Login(&operate.AuthCond{
 			// 	Token:  obj.Token,

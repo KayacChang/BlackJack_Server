@@ -31,7 +31,7 @@ func ActionCheck(c *client, req *Frame) (bool, error) {
 	case CMDc2sLogin:
 		ok = true
 		id := uuid.Must(uuid.NewV4()).String()
-		fmt.Println("ActionCheck Login 1")
+		// fmt.Println("ActionCheck Login 1")
 		// TODO
 		// res, err := operate.Login(&operate.AuthCond{
 		// 	Token:  req.Token,
@@ -49,11 +49,12 @@ func ActionCheck(c *client, req *Frame) (bool, error) {
 		c.ConnID = id
 
 		c.write(NewS2CLoginAck())
-		SendMemberInfo(c)
+		c.Balance = float64(user.UserGameInfo.GetMoney())
+		c.write(NewS2CMemberInfo(user.UserServerInfo.Account, c.Balance))
 		return ok, nil
 
 	case command.Bet:
-		fmt.Println("ActionCheck Bet 1")
+		// fmt.Println("ActionCheck Bet 1")
 		obj := &protocol.Data{}
 		if err := json.Unmarshal(*req.Data.(*json.RawMessage), obj); err != nil {
 			log.Println(err)
@@ -72,13 +73,15 @@ func ActionCheck(c *client, req *Frame) (bool, error) {
 
 			c.betOrderRes[fmt.Sprintf("%d-%s", item.No, action.Bet)] = order
 			c.BetAmount[fmt.Sprintf("%d-%s", item.No, action.Bet)] = item.Bet
+			user.UserGameInfo.SumMoney(int64(item.Bet * -1))
 		}
 
-		SendMemberInfo(c)
+		c.Balance = float64(user.UserGameInfo.GetMoney())
+		c.write(NewS2CMemberInfo(user.UserServerInfo.Account, c.Balance))
 		return ok, nil
 
 	case command.Action:
-		fmt.Println("ActionCheck Action 1")
+		// fmt.Println("ActionCheck Action 1")
 		obj := &protocol.Data{}
 		if err := json.Unmarshal(*req.Data.(*json.RawMessage), obj); err != nil {
 			log.Println(err)
@@ -91,7 +94,7 @@ func ActionCheck(c *client, req *Frame) (bool, error) {
 		switch obj.Action {
 		case action.Split:
 			// TODO 新增子單
-			fmt.Println("ActionCheck Action 1 Split 1")
+			// fmt.Println("ActionCheck Action 1 Split 1")
 			subOrder, errproto, err := NewSubOrder(user.UserServerInfo.Token, order, int64(order.Bet))
 			if errproto != nil {
 				return ok, errors.New(fmt.Sprint("%d : %s", errproto.GetCode(), errproto.GetMessage()))
@@ -101,37 +104,41 @@ func ActionCheck(c *client, req *Frame) (bool, error) {
 			c.betOrderRes[fmt.Sprintf("%d-%s", obj.No, obj.Action)] = subOrder
 		case action.Double:
 			// TODO 新增子單
-			fmt.Println("ActionCheck Action 1 Double 1")
+			// fmt.Println("ActionCheck Action 1 Double 1")
 			subOrder, errproto, err := NewSubOrder(user.UserServerInfo.Token, order, int64(order.Bet))
 			if errproto != nil {
 				return ok, errors.New(fmt.Sprint("%d : %s", errproto.GetCode(), errproto.GetMessage()))
 			} else if err != nil {
 				return ok, err
 			}
+
+			user.UserGameInfo.SumMoney(int64(order.Bet) * -1)
 			c.betOrderRes[fmt.Sprintf("%d-%s", obj.No, obj.Action)] = subOrder
 		case action.Insurance:
 			// TODO 新增子單
-			fmt.Println("ActionCheck Action 1 Insurance 1")
+			// fmt.Println("ActionCheck Action 1 Insurance 1")
 			subOrder, errproto, err := NewSubOrder(user.UserServerInfo.Token, order, int64(order.Bet/2))
 			if errproto != nil {
 				return ok, errors.New(fmt.Sprint("%d : %s", errproto.GetCode(), errproto.GetMessage()))
 			} else if err != nil {
 				return ok, err
 			}
+			user.UserGameInfo.SumMoney(int64(order.Bet/2) * -1)
 			c.betOrderRes[fmt.Sprintf("%d-%s", obj.No, obj.Action)] = subOrder
 		case action.Pay:
 			// TODO 新增子單
-			fmt.Println("ActionCheck Action 1 Pay 1")
+			// fmt.Println("ActionCheck Action 1 Pay 1")
 			subOrder, errproto, err := NewSubOrder(user.UserServerInfo.Token, order, 0)
 			if errproto != nil {
 				return ok, errors.New(fmt.Sprint("%d : %s", errproto.GetCode(), errproto.GetMessage()))
 			} else if err != nil {
 				return ok, err
 			}
+			user.UserGameInfo.SumMoney(int64(order.Bet * 2))
 			c.betOrderRes[fmt.Sprintf("%d-%s", obj.No, obj.Action)] = subOrder
 		case action.GiveUp: // 投降
 			// TODO 新增子單
-			fmt.Println("ActionCheck Action 1 GiveUp 1")
+			// fmt.Println("ActionCheck Action 1 GiveUp 1")
 			subOrder, errproto, err := NewSubOrder(user.UserServerInfo.Token, order, 0)
 			if errproto != nil {
 				return ok, errors.New(fmt.Sprint("%d : %s", errproto.GetCode(), errproto.GetMessage()))
@@ -140,13 +147,14 @@ func ActionCheck(c *client, req *Frame) (bool, error) {
 			}
 			c.betOrderRes[fmt.Sprintf("%d-%s", obj.No, obj.Action)] = subOrder
 		}
-		SendMemberInfo(c)
+		c.Balance = float64(user.UserGameInfo.GetMoney())
+		c.write(NewS2CMemberInfo(user.UserServerInfo.Account, c.Balance))
 	}
 	return ok, nil
 }
 
 func SendMemberInfo(c *client) {
-	fmt.Println("ActionCheck GetMemberInfo 1")
+	// fmt.Println("ActionCheck GetMemberInfo 1")
 	// TODO 取得玩家資料
 	user, errproto, err := GetUser(c.Token)
 	if errproto != nil {
@@ -159,5 +167,5 @@ func SendMemberInfo(c *client) {
 		return
 	}
 	c.Balance = float64(user.UserGameInfo.GetMoney())
-	c.write(NewS2CMemberInfo(user.UserServerInfo.Account, c.Balance))
+	c.write(NewS2CMemberInfo(user.UserGameInfo.Name, c.Balance))
 }

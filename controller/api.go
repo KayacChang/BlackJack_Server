@@ -51,6 +51,7 @@ func GetUser(userToken string) (*user.Info, *protoc.Error, error) {
 	}
 
 	url := fmt.Sprintf(AuthUserURL, conf.ULG168APIHost, version, tokens[1])
+	// fmt.Println("GetUser:", url, " token:", userToken)
 	res, err := authUserAPI(url)
 	if err != nil {
 		if res != nil {
@@ -101,7 +102,9 @@ func NewOrder(token, userIDStr string, betMoney int64) (*protoc.Order, *protoc.E
 		return nil, nil, err
 	}
 
-	res, err := newOrderAPI(fmt.Sprintf(NewOrderURL, conf.ULG168APIHost, version), token, payload)
+	url := fmt.Sprintf(NewOrderURL, conf.ULG168APIHost, version)
+	fmt.Println("NewOrder:", url, " token:", token, " payload:", orderProto)
+	res, err := newOrderAPI(url, token, payload)
 	if err != nil {
 		if res != nil {
 			errorProto := &protoc.Error{}
@@ -139,7 +142,9 @@ func NewSubOrder(token string, orderProto *protoc.Order, betMoney int64) (*proto
 		return nil, nil, err
 	}
 
-	res, err := newSubOrderAPI(fmt.Sprintf(NewSubOrderURL, conf.ULG168APIHost, version), token, payload)
+	url := fmt.Sprintf(NewSubOrderURL, conf.ULG168APIHost, version)
+	fmt.Println("NewSubOrder:", url, " token:", token, " payload:", orderSubProto)
+	res, err := newSubOrderAPI(url, token, payload)
 	if err != nil {
 		if res != nil {
 			errorProto := &protoc.Error{}
@@ -168,7 +173,9 @@ func UpdateOrder(token string, orderProto *protoc.Order) (*protoc.Order, *protoc
 		return nil, nil, err
 	}
 
-	res, err := updateOrderAPI(fmt.Sprintf(GetOrderURL, conf.ULG168APIHost, version, orderProto.GetOrderId()), token, payload)
+	url := fmt.Sprintf(GetOrderURL, conf.ULG168APIHost, version, orderProto.GetOrderId())
+	fmt.Println("UpdateOrder:", url, " token:", token, " payload:", orderProto)
+	res, err := updateOrderAPI(url, token, payload)
 	if err != nil {
 		if res != nil {
 			errorProto := &protoc.Error{}
@@ -198,7 +205,9 @@ func EndOrder(token string, orderProto *protoc.Order) (*protoc.Order, *protoc.Er
 		return nil, nil, err
 	}
 
-	res, err := updateOrderAPI(fmt.Sprintf(GetOrderURL, conf.ULG168APIHost, version, orderProto.GetOrderId()), token, payload)
+	url := fmt.Sprintf(GetOrderURL, conf.ULG168APIHost, version, orderProto.GetOrderId())
+	fmt.Println("EndOrder:", url, " token:", token, " payload:", orderProto)
+	res, err := updateOrderAPI(url, token, payload)
 	if err != nil {
 		if res != nil {
 			errorProto := &protoc.Error{}
@@ -256,7 +265,7 @@ func newOrderAPI(url, token string, payload []byte) ([]byte, error) {
 	return res, nil
 }
 
-// updateOrderAPI GET transation 	投降、
+// updateOrderAPI GET transation 結算
 func updateOrderAPI(url, token string, payload []byte) ([]byte, error) {
 	header := map[string][]string{
 		"Authorization": []string{token},

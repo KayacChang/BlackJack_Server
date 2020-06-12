@@ -21,10 +21,10 @@ import (
 
 const (
 	// ResponseTime is the default limit in seconds a player should answer.
-	ResponseTime = 2
+	ResponseTime = 10
 
 	// BetTime is the default limit in seconds a player can bet.
-	BetTime = 2
+	BetTime = 20
 )
 
 var _ lobby.Room = &Table{}

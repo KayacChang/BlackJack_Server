@@ -10,10 +10,10 @@ import (
 
 	"github.com/gorilla/websocket"
 	"gitlab.fbk168.com/gamedevjp/blackjack/server/conf"
+	"gitlab.fbk168.com/gamedevjp/blackjack/server/controller/protoc"
 	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/frame"
 	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/frame/code"
 	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/ulgsdk/order"
-	"gitlab.fbk168.com/gamedevjp/blackjack/server/go-modules/utils/timetool"
 	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol"
 	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol/action"
 	"gitlab.fbk168.com/gamedevjp/blackjack/server/protocol/command"
@@ -97,35 +97,48 @@ func (c *client) serve() {
 
 			case command.GameResult:
 				if result, ok := f.Data.([]protocol.BetData); ok {
-					basic := order.Basic{
-						Token:     c.Token,
-						GameToken: c.GameToken,
-						GameID:    conf.GameID,
+					user, errproto, err := GetUser(c.Token)
+					if errproto != nil {
+						log.Println(errproto)
+						c.write(NewS2CErrorAck(ECWalletTransferError, fmt.Errorf("%d : %s", errproto.GetCode(), errproto.GetMessage())))
+						return
+					} else if err != nil {
+						log.Println(err)
+						c.write(NewS2CErrorAck(ECWalletTransferError, err))
+						return
 					}
 
 					for _, d := range result {
-						banker := strings.Join(d.Dealer.Codes(), ",")
+						// banker := strings.Join(d.Dealer.Codes(), ",")
+						ibetOrder, _ := c.betOrderRes[fmt.Sprintf("%d-%s", d.No, action.Bet)]
+						betOrder := ibetOrder.(*protoc.Order)
+
 						for k, v := range d.Action {
 							key := k
 							if key == action.Pay || key == action.GiveUp {
 								key = action.Bet
 							}
-							o, found := c.betOrderRes[fmt.Sprintf("%d-%s", d.No, key)]
+							_, found := c.betOrderRes[fmt.Sprintf("%d-%s", d.No, key)]
 							if !found {
 								continue
 							}
 							switch k {
 							case action.Double:
-								log.Printf("settlement: %s, %+v, %+v\n", k, v, o)
+								// log.Printf("settlement: %s, %+v, %+v\n", k, v, o)
 								v.Cards = d.Action[action.Bet].Cards
 							case action.Insurance:
-								log.Printf("settlement: %s, %+v, %+v\n", k, v, o)
+								// log.Printf("settlement: %s, %+v, %+v\n", k, v, o)
 								v.Cards = d.Dealer
 							}
-							settlement(basic, k, banker, v, c.betOrderRes)
+							betOrder.Win += uint64(v.Pay)
+							// settlement(basic, k, banker, v, c.betOrderRes)
 						}
+						EndOrder(c.Token, betOrder)
+						user.UserGameInfo.MoneyU += betOrder.Win
 					}
-					SendMemberInfo(c)
+					c.betOrderRes = make(map[string]IOrder)
+					c.Balance = float64(user.UserGameInfo.MoneyU)
+					c.write(NewS2CMemberInfo(user.UserServerInfo.Account, c.Balance))
 
 					var total float64
 					for _, d := range result {
@@ -153,12 +166,29 @@ func (c *client) serve() {
 }
 
 func settlement(basic order.Basic, action, banker string, v protocol.Pile, o map[string]IOrder) {
-	amount := v.Bet
-	win := v.Pay
-	res := strings.Join(v.Cards.Codes(), ",")
-	now := timetool.GetNowByUTC()
+	// amount := v.Bet
+	// win := v.Pay
+	// res := strings.Join(v.Cards.Codes(), ",")
+	// now := timetool.GetNowByUTC()
 
-	fmt.Println("amount", amount, "win", win, "res", res, "now", now, "o", o)
+	// for key, action := range o {
+	// 	if
+	// }
+
+	if v.Pay >= 200 {
+		fmt.Println("-----")
+		js, _ := json.Marshal(o)
+		vjs, _ := json.Marshal(v)
+		fmt.Println("settlement v:", string(vjs))
+		fmt.Println("o", string(js))
+		fmt.Println("-----")
+	} else {
+		js, _ := json.Marshal(o)
+		vjs, _ := json.Marshal(v)
+		fmt.Println("settlement v:", string(vjs))
+		fmt.Println("o", string(js))
+	}
+
 	// for _, oi := range o.OrderItems {
 	// 	if oi.PlayCode != action {
 	// 		continue
@@ -254,7 +284,8 @@ func (c *client) listenAndServe() {
 		}
 		req.Data = d
 
-		fmt.Println("client: ", req.Frame)
+		js, _ := json.Marshal(req.Frame)
+		fmt.Println("client: ", string(js))
 		c.out <- req.Frame
 	}
 }
