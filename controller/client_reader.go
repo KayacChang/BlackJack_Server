@@ -50,7 +50,7 @@ func ActionCheck(c *client, req *Frame) (bool, error) {
 
 		c.write(NewS2CLoginAck())
 		c.Balance = float64(user.UserGameInfo.GetMoney())
-		c.write(NewS2CMemberInfo(user.UserServerInfo.Account, c.Balance))
+		c.write(NewS2CMemberInfo(user.UserGameInfo.Name, c.Balance))
 		return ok, nil
 
 	case command.Bet:
@@ -77,7 +77,7 @@ func ActionCheck(c *client, req *Frame) (bool, error) {
 		}
 
 		c.Balance = float64(user.UserGameInfo.GetMoney())
-		c.write(NewS2CMemberInfo(user.UserServerInfo.Account, c.Balance))
+		c.write(NewS2CMemberInfo(user.UserGameInfo.Name, c.Balance))
 		return ok, nil
 
 	case command.Action:
@@ -148,7 +148,7 @@ func ActionCheck(c *client, req *Frame) (bool, error) {
 			c.betOrderRes[fmt.Sprintf("%d-%s", obj.No, obj.Action)] = subOrder
 		}
 		c.Balance = float64(user.UserGameInfo.GetMoney())
-		c.write(NewS2CMemberInfo(user.UserServerInfo.Account, c.Balance))
+		c.write(NewS2CMemberInfo(user.UserGameInfo.Name, c.Balance))
 	}
 	return ok, nil
 }

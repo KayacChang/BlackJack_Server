@@ -138,7 +138,7 @@ func (c *client) serve() {
 					}
 					c.betOrderRes = make(map[string]IOrder)
 					c.Balance = float64(user.UserGameInfo.MoneyU)
-					c.write(NewS2CMemberInfo(user.UserServerInfo.Account, c.Balance))
+					c.write(NewS2CMemberInfo(user.UserGameInfo.Name, c.Balance))
 
 					var total float64
 					for _, d := range result {

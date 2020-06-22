@@ -88,10 +88,10 @@ func checklogin(conn *websocket.Conn) (*client, error) {
 
 			c := newClient(conn)
 			c.Token = obj.Token
-			// c.GameToken = res.GameToken
+			// c.GameToken = user.UserGameInfo.GameToken
 			c.ConnID = id
-			c.Name = "testname"
-			c.Account = "testacc"
+			c.Name = user.UserGameInfo.Name
+			c.Account = user.UserGameInfo.IDStr
 			return c, nil
 		}
 	}
