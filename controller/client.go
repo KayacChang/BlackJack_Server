@@ -133,8 +133,8 @@ func (c *client) serve() {
 							betOrder.Win += uint64(v.Pay)
 							// settlement(basic, k, banker, v, c.betOrderRes)
 						}
-						EndOrder(c.Token, betOrder)
 						user.UserGameInfo.MoneyU += betOrder.Win
+						EndOrder(c.Token, betOrder)
 					}
 					c.betOrderRes = make(map[string]IOrder)
 					c.Balance = float64(user.UserGameInfo.MoneyU)
