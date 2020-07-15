@@ -17,9 +17,9 @@ var (
 )
 
 func init() {
-	viper.SetConfigName("api") // name of config file (without extension)
-	viper.SetConfigType("yml")
-	viper.AddConfigPath("./conf/conf.d") // optionally look for config in the working directory
+	viper.SetConfigName(".env") // name of config file (without extension)
+	viper.SetConfigType("env")
+	viper.AddConfigPath("./") // optionally look for config in the working directory
 
 	if err := viper.ReadInConfig(); err != nil { // Find and read the config file
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
