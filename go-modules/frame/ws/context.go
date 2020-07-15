@@ -94,8 +94,10 @@ func (c *Context) Send(f frame.Frame) {
 }
 
 func newContext(ctx context.Context, exit context.CancelFunc) *Context {
+	var err error
+
 	return &Context{
-		uid:   uuid.Must(uuid.NewV4()),
+		uid:   uuid.Must(uuid.NewV4(), err),
 		ctx:   ctx,
 		exit:  exit,
 		state: make(map[string]interface{}),
