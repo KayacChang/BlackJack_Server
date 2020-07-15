@@ -30,7 +30,7 @@ func ActionCheck(c *client, req *Frame) (bool, error) {
 	switch req.Command {
 	case CMDc2sLogin:
 		ok = true
-		id := uuid.Must(uuid.NewV4()).String()
+		id := uuid.Must(uuid.NewV4(), err).String()
 		// fmt.Println("ActionCheck Login 1")
 		// TODO
 		// res, err := operate.Login(&operate.AuthCond{
