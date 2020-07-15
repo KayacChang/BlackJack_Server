@@ -15,9 +15,9 @@ var (
 )
 
 func init() {
-	viper.SetConfigName("db") // name of config file (without extension)
-	viper.SetConfigType("yml")
-	viper.AddConfigPath("./conf/conf.d") // optionally look for config in the working directory
+	viper.SetConfigName(".env") // name of config file (without extension)
+	viper.SetConfigType("env")
+	viper.AddConfigPath("./") // optionally look for config in the working directory
 
 	err := viper.ReadInConfig() // Find and read the config file
 	if err != nil {             // Handle errors reading the config file
@@ -25,18 +25,18 @@ func init() {
 	}
 
 	MysqlConf = &mysqlConf{
-		Host:     viper.GetString("host"),
-		Port:     viper.GetString("port"),
-		Database: viper.GetString("db"),
+		Host:     viper.GetString("DB_IP"),
+		Port:     viper.GetString("DB_PORT"),
+		Database: viper.GetString("DB_NAME"),
 		// MysqlTimeZone : viper.GetString("timezone"),
-		Charset:      viper.GetString("charset"),
-		User:         viper.GetString("user"),
-		Passwd:       viper.GetString("passwd"),
-		ParseTime:    viper.GetString("parse_time"),
-		Debug:        viper.GetBool("debug"),
-		Singular:     viper.GetBool("singular"),
-		MaxIdleConns: viper.GetInt("max_idle_conns"),
-		MaxOpenConns: viper.GetInt("max_open_conns"),
+		Charset:      viper.GetString("DB_CHARSET"),
+		User:         viper.GetString("DB_USER"),
+		Passwd:       viper.GetString("DB_PASSWORD"),
+		ParseTime:    viper.GetString("DB_PARSE_TIME"),
+		Debug:        viper.GetBool("DB_DEBUG"),
+		Singular:     viper.GetBool("DB_SINGULAR"),
+		MaxIdleConns: viper.GetInt("DB_MAX_IDLE_CONNECTION"),
+		MaxOpenConns: viper.GetInt("DB_MAX_OPEN_CONNECTION"),
 	}
 
 	fmt.Println(MysqlConf.ConverToPath())
