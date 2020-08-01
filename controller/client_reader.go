@@ -62,6 +62,14 @@ func ActionCheck(c *client, req *Frame) (bool, error) {
 			return ok, err
 		}
 
+		var betAmount float64
+		for _, item := range obj.Bets {
+			betAmount += item.Bet
+		}
+		if betAmount > c.Balance {
+			return ok, errors.New("Balance error")
+		}
+
 		var syncWait sync.WaitGroup
 		//var ok bool
 		var err error
